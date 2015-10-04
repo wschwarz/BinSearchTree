@@ -1,0 +1,21 @@
+{
+  "name": "binarySearchTree",
+  "version": "1.0.0",
+  "description": "Javascript implementation of a binary search tree.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --harmony `which gulp` test"
+  },
+  "engine": "node 0.12.4",
+  "author": "wschwarz1986@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.3.0",
+    "gulp": "^3.9.0",
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "gulp-spawn-mocha": "^2.2.1"
+  }
+}
