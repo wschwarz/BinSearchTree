@@ -5,3 +5,15 @@ Supports simple values (used as keys) or objects that have a 'key' property that
 
 example: { 'key': 1, 'otherfield': ['hi'], 'nextfield': 'Bob' }
 
+## To Run:
+
+npm test
+
+## To Use:
+
+	var BinarySearchTree = require('./../index');
+	BinarySearchTree.push(16);
+	BinarySearchTree.depthFirstSearch(16);
+	etc.
+
+	
