@@ -146,20 +146,23 @@ BinarySearchTree.prototype.postOrderWalk = function (node, output) {
 }
 
 BinarySearchTree.prototype.min = function (node) {
-	if (!node) { return false; }
+	if (typeof node === "undefined") { node = this.root; }
+	if (!node || node === null) { return false; }
 	if (node.left) { return this.min(node.left); }
 	return node.value;
 }
 
 BinarySearchTree.prototype.max = function (node) {
-	if (!node) { return false; }
+	if (typeof node === "undefined") { node = this.root; }
+	if (!node || node === null) { return false; }
 	if (node.right) { return this.max(node.right); }
 	return node.value;
 
 }
 
 BinarySearchTree.prototype.getHeight = function(node) {
-	if (!node) { return 0; }
+	if (typeof node === "undefined") { node = this.root; }
+	if (!node || node === null ) { return 0; }
 
 	var leftHeight = this.getHeight(node.left);
 	var rightHeight = this.getHeight(node.right);
@@ -168,7 +171,8 @@ BinarySearchTree.prototype.getHeight = function(node) {
 }
 
 BinarySearchTree.prototype.checkBalanced = function(node) {
-	if (!node) { return false; }
+	if (typeof node === "undefined") { node = this.root; }
+	if (!node || node === null ) { return false; }
 
 	var heightDiff = Math.abs(this.getHeight(node.left) - this.getHeight(node.right));
 	var leftBalanced = (node.left == null || this.checkBalanced(node.left));
@@ -182,6 +186,7 @@ BinarySearchTree.prototype.checkBalanced = function(node) {
 
 /* The idea here is to walk while checking if left less than node less than right */
 BinarySearchTree.prototype.checkBSTTraversalMethod = function(node) {
+	if (typeof node === "undefined") { node = this.root; }
 	var prev = null;
 	if (node) {
 		if (!this.checkBSTTraversalMethod(node.left)) {
@@ -200,50 +205,53 @@ BinarySearchTree.prototype.checkBSTTraversalMethod = function(node) {
 	return true; //Empty is BST (Also applies to leaf nodes)
 }
 
-BinarySearchTree.prototype.lowestCommonAncestor = function(node, val1, val2) {
+BinarySearchTree.prototype.lowestCommonAncestor = function(val1, val2, node) {
+	if (typeof node === "undefined") { node = this.root; }
 	if (!node) { return false; }
 
 	if (node.getKey() > val1 && node.getKey() > val2) {
-		if (node.left) { return this.lowestCommonAncestor(node.left, val1, val2); }
+		if (node.left) { return this.lowestCommonAncestor(val1, val2, node.left); }
 	}
 
 	if (node.getKey() < val1 && node.getKey() < val2) {
-		if (node.right) { return this.lowestCommonAncestor(node.right, val1, val2); }
+		if (node.right) { return this.lowestCommonAncestor(val1, val2, node.right); }
 	}
 
 	return node;
 }
 
-BinarySearchTree.prototype.depthFirstSearch = function (node, needle) {
+BinarySearchTree.prototype.depthFirstSearch = function (needle, node) {
 
-	console.log(" cur node value: " + (node != null ? node.value : "null"));
-	if (!node) { return false; }
+	// console.log(" cur node value: " + (node != null ? node.value : "null"));
+	if (typeof node === "undefined") { node = this.root; }
+	if (!node || node === null) { return false; }
 
 	if (node.getKey() == needle) {
 		return node;
 	}
 
-	var left = this.depthFirstSearch(node.left, needle);
-	if (left.getKey() == needle) {
+	var left = this.depthFirstSearch(needle, node.left);
+	if (left && left.getKey() == needle) {
 		return left;
 	}
-	var right = this.depthFirstSearch(node.right, needle);
-	if (right.getKey() == needle) {
+	var right = this.depthFirstSearch(needle, node.right);
+	if (right && right.getKey() == needle) {
 		return right;
 	}
 
 	return false;
 }
 
-BinarySearchTree.prototype.breadthFirstSearch = function (node, needle) {
-	if (!node) { return false; }
+BinarySearchTree.prototype.breadthFirstSearch = function (needle, node) {
+	if (typeof node === "undefined") { node = this.root; }
+	if (!node || node === null ) { return false; }
 
 	var queue = new Array();
 	queue.push(node);
 	var curNode;
 	while (queue.length > 0) {
 		curNode = queue.shift();
-		console.log(curNode.value);
+		// console.log(curNode.value);
 		if (curNode.getKey() == needle) { break; }
 		else {
 			if (curNode.left) { queue.push(curNode.left); }

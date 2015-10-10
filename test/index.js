@@ -32,7 +32,7 @@ describe('Binary Search Tree', function() {
 		testTree.push(25);
 		testTree.push(18);
 		// console.log(util.inspect(testTree, { 'depth': null }));
-		console.log(testTree.prettyPrint());
+		// console.log(testTree.prettyPrint());
 	});
 
 	it('exists', function() {
@@ -44,7 +44,7 @@ describe('Binary Search Tree', function() {
 		var walk = testTree.walk();
 		expect(testTree).to.be.defined;
 		expect(testTree.walk).to.be.a.function;
-		console.log(walk);
+		// console.log(walk);
 		expect(walk).to.deep.equal([ 1, 2, 6, 7, 8, 13, 16, 18, 20, 25 ]);
 	});
 
@@ -52,7 +52,7 @@ describe('Binary Search Tree', function() {
 		var walk = testTree.preOrderWalk();
 		expect(testTree).to.be.defined;
 		expect(testTree.preOrderWalk).to.be.a.function;
-		console.log(walk);
+		// console.log(walk);
 		expect(walk).to.deep.equal([ 7, 2, 1, 6, 8, 20, 13, 16, 18, 25 ]);
 	})
 
@@ -68,6 +68,61 @@ describe('Binary Search Tree', function() {
 		expect(message).to.equal("hi world goodbye");
 	});
 
+	it('depth first searches', function() {
+		var result = testTree.depthFirstSearch(16);
+		expect(result).to.be.ok;
+		expect(result.value).to.equal(16);
+	}); /* How do I verify that it is using depth first searching compared to something else */
+
+	it('breadth first searches', function() {
+		var result = testTree.breadthFirstSearch(13);
+		expect(result).to.be.ok;
+		expect(result.value).to.equal(13);
+	});
+
+	it('min value', function() {
+		var min = testTree.min();
+		expect(min).to.be.ok;
+		expect(min).to.equal(1);
+	}); /* add a lower value and re-run */
+
+	it('max value', function() {
+		var max = testTree.max();
+		expect(max).to.be.ok;
+		expect(max).to.equal(25);
+	}); /* add a higher value and re-run */
+
+	it('check height', function() {
+		var height = testTree.getHeight();
+		expect(height).to.be.ok;
+		expect(height).to.equal(6);
+	});
+
+	it('check balanced - unbalanced', function() {
+		var checkBalanced = testTree.checkBalanced();
+		expect(checkBalanced).to.be.false;
+	}); /* have balanced test */
+
+	it('check balanced - balanced', function() {
+		var balancedTree = new BinarySearchTree();
+		balancedTree.push(7);
+		balancedTree.push(8);
+		balancedTree.push(2);
+		balancedTree.push(6);
+		balancedTree.push(1);
+		var checkBalanced = balancedTree.checkBalanced();
+	});
+
+	it('lowest common ancestor', function() {
+		var lca = testTree.lowestCommonAncestor(13, 20);
+		console.log(lca);
+	});
+
+	it('check validate', function() {
+		var isValid = testTree.checkBSTTraversalMethod();
+		expect(isValid).to.be.ok;
+		expect(isValid).to.be.true;
+	});
 });
 
 
@@ -76,43 +131,6 @@ console.log("");
 console.log("Tree -------------------");
 console.log(util.inspect(testTree, { 'depth': null }));
 console.log("end Tree -------------------");
-
-console.log("");
-console.log("walking -------------------");
-testTree.walk(testTree.root);
-console.log("end walking -------------------");
-
-console.log("");
-console.log("pre order -------------------");
-testTree.preOrderWalk(testTree.root);
-console.log("end pre order -------------------");
-
-console.log("");
-console.log("post order -------------------");
-testTree.postOrderWalk(testTree.root);
-console.log("end post order -------------------");
-
-console.log("");
-console.log("depth first search -------------");
-console.log(" RESULT *** ", testTree.depthFirstSearch(testTree.root, 16));
-console.log("end depth first search -------------");
-
-console.log("");
-console.log("breadth first search --------------");
-console.log(" RESULT *** ", testTree.breadthFirstSearch(testTree.root, 13));
-console.log("end breadth first search --------------");
-
-console.log("")
-console.log("min: ", testTree.min(testTree.root));
-
-console.log("");
-console.log("max: ", testTree.max(testTree.root));
-
-console.log("");
-console.log("height: ", testTree.getHeight(testTree.root));
-
-console.log("");
-console.log("balanced: ", testTree.checkBalanced(testTree.root));
 
 console.log("");
 console.log("LCA: ", testTree.lowestCommonAncestor(testTree.root, 16, 18));
