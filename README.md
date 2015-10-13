@@ -18,6 +18,7 @@ npm test
 
 ## Todo:
 
-1) Test speed (depth vs breadth)
-2) Generic Search Function
-3) Test memory usage
+* Test speed (depth vs breadth)
+* Generic Search Function
+* Test memory usage
+* Actual usage in a project
