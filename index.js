@@ -258,7 +258,11 @@ BinarySearchTree.prototype.breadthFirstSearch = function (needle, node) {
 			if (curNode.right) { queue.push(curNode.right); }
 		}
 	}
-	return curNode;
+	if (curNode.getKey() === needle) {
+		return curNode;
+	} else {
+		return false;
+	}
 }
 
 module.exports = BinarySearchTree;

@@ -123,9 +123,57 @@ describe('Binary Search Tree', function() {
 		expect(isValid).to.be.ok;
 		expect(isValid).to.be.true;
 	});
+
+	it('stress', function() {
+		var stressedTree = new BinarySearchTree();
+		var timeStart = process.hrtime();
+		for (var i = 0; i < 100000; i++) {
+			// if (i === 5000) {
+			// 	stressedTree.push(156789);
+			// }
+			// else {
+				stressedTree.push(randomInt());
+			// }
+		}
+		logTimeTook(timeStart);
+		var timeSearchStart = process.hrtime();
+		var searchResult = stressedTree.breadthFirstSearch(156789);
+		console.log("search result for 156788: " , searchResult);
+		logTimeTook(timeSearchStart);
+		var timeSearchStartDepth = process.hrtime();
+		var searchResultDepth = stressedTree.depthFirstSearch(156789);
+		console.log("search result (depth) for 156788: " , searchResultDepth);
+		logTimeTook(timeSearchStartDepth);
+	});
+
+	after(function () {
+		var memoryUsage = process.memoryUsage();
+		var convertedrss = convertMemUsage(memoryUsage.rss);
+		var convertedHeapTotal = convertMemUsage(memoryUsage.heapTotal);
+		var convertedHeapUsed = convertMemUsage(memoryUsage.heapUsed);
+		console.log("resident set size: " + convertedrss.kb + "kb, " + convertedrss.mb + "mb.");
+		console.log("heap total: " + convertedHeapTotal.kb + "kb, " + convertedHeapTotal.mb + "mb.");
+		console.log("heap used: " + convertedHeapUsed.kb + "kb, " + convertedHeapUsed.mb + "mb.");
+	});
 });
 
+function convertMemUsage(value) {
+	var bytesToKiloByte = 1024;
+	var bytesToMegaByte = 1048576;
+	return { 'kb': value / bytesToKiloByte, 'mb': value / bytesToMegaByte };
+}
 
+function randomInt () {
+	var low = 0;
+	var high = 2000000;
+    return Math.floor(Math.random() * (high - low) + low);
+}
+
+function logTimeTook(timeStart) {
+	var timeDiff = process.hrtime(timeStart);
+	var responseTime = (timeDiff[0] / 1e3) + (timeDiff[1] / 1e6);
+	console.log("duration: " + responseTime + "ms.");
+}
 /*
 console.log("");
 console.log("Tree -------------------");
@@ -135,6 +183,4 @@ console.log("end Tree -------------------");
 console.log("");
 console.log("LCA: ", testTree.lowestCommonAncestor(testTree.root, 16, 18));
 
-console.log("");
-console.log("Check BST: ", testTree.checkBSTTraversalMethod(testTree.root));
 */
